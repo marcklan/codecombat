@@ -40,7 +40,7 @@ xdescribe 'CourseVictoryModal', ->
         })
     nextLevelRequest = modal.nextLevel.fakeRequests[0]
 
-  describe 'given a course level with a next level and no item or hero rewards', ->
+  xdescribe 'given a course level with a next level and no item or hero rewards', ->
     modal = null
 
     beforeEach (done) ->
@@ -56,7 +56,7 @@ xdescribe 'CourseVictoryModal', ->
 
     it '(demo)', -> jasmine.demoModal(modal)
 
-    describe 'its ProgressView', ->
+    xdescribe 'its ProgressView', ->
       it 'has a next level button which navigates to the next level on click', ->
         spyOn(application.router, 'navigate')
         button = modal.$el.find('#next-level-btn')
@@ -69,7 +69,7 @@ xdescribe 'CourseVictoryModal', ->
         expect(modal.$('.row:first .col-sm-5').length).toBe(1)
         expect(modal.$('.row:first .col-sm-7').length).toBe(1)
 
-  describe 'given a course level without a next level', ->
+  xdescribe 'given a course level without a next level', ->
     modal = null
 
     beforeEach (done) ->
@@ -84,7 +84,7 @@ xdescribe 'CourseVictoryModal', ->
       nextLevelRequest.respondWith({status: 404, responseText: '{}'})
       _.defer done
 
-    describe 'its ProgressView', ->
+    xdescribe 'its ProgressView', ->
       it 'has a single large column, since there is no next level to display', ->
         expect(modal.$('.row:first .col-sm-12').length).toBe(1)
         expect(modal.$('.row:first .col-sm-5').length).toBe(0)
@@ -99,7 +99,7 @@ xdescribe 'CourseVictoryModal', ->
 
     it '(demo)', -> jasmine.demoModal(modal)
 
-  describe 'given a project level', ->
+  xdescribe 'given a project level', ->
     modal = null
 
     beforeEach (done) ->
@@ -118,7 +118,7 @@ xdescribe 'CourseVictoryModal', ->
       nextLevelRequest.respondWith({status: 404, responseText: '{}'})
       _.defer done
 
-    describe 'its CourseVictoryModal', ->
+    xdescribe 'its CourseVictoryModal', ->
       xit 'has a publish button which sets session.published to true', (done) ->
         spyOn(application.router, 'navigate')
         button = modal.$el.find('#publish-btn')
