@@ -85,6 +85,7 @@ module.exports = TestView = class TestView extends RootView
         console.log "Test started: ", result.fullName
       
       specDone: (result) ->
+        console.log "Test done: ", result.fullName
         if result.status is 'failed'
           report = {
             suiteDescriptions: _.clone(@suiteStack)
@@ -96,9 +97,11 @@ module.exports = TestView = class TestView extends RootView
           view?.renderSelectors('#failure-reports')
         
       suiteStarted: (result) ->
+        console.log "Suite started: ", result.fullName
         @suiteStack.push(result.description)
 
       suiteDone: (result) ->
+        console.log "Suite done: ", result.fullName
         @suiteStack.pop()
         
     })
