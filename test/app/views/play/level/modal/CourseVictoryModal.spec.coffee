@@ -5,7 +5,7 @@ CourseVictoryModal = require 'views/play/level/modal/CourseVictoryModal'
 ProgressView = require 'views/play/level/modal/ProgressView'
 factories = require 'test/app/factories'
 
-describe 'CourseVictoryModal', ->
+xdescribe 'CourseVictoryModal', ->
   beforeEach ->
     me.clear()
 
