@@ -27,11 +27,11 @@ module.exports.setup = (app) ->
   app.get('/api/playtime-stats', mw.api.getPlayTimeStats)
 
   passport = require('passport')
-  app.post('/auth/login', passport.authenticate('local'), mw.auth.afterLogin)
-  app.post('/auth/login-facebook', mw.auth.loginByFacebook, mw.auth.afterLogin)
-  app.post('/auth/login-gplus', mw.auth.loginByGPlus, mw.auth.afterLogin)
-  app.get('/auth/login-clever', mw.auth.loginByClever, mw.auth.redirectAfterLogin)
-  app.get('/auth/login-o-auth', mw.auth.loginByOAuthProvider, mw.auth.redirectOnError, mw.auth.redirectAfterLogin)
+  app.post('/auth/login', mw.auth.authDelay, passport.authenticate('local'), mw.auth.afterLogin)
+  app.post('/auth/login-facebook', mw.auth.authDelay, mw.auth.loginByFacebook, mw.auth.afterLogin)
+  app.post('/auth/login-gplus', mw.auth.authDelay, mw.auth.loginByGPlus, mw.auth.afterLogin)
+  app.get('/auth/login-clever', mw.auth.authDelay, mw.auth.loginByClever, mw.auth.redirectAfterLogin)
+  app.get('/auth/login-o-auth', mw.auth.authDelay, mw.auth.loginByOAuthProvider, mw.auth.redirectOnError, mw.auth.redirectAfterLogin)
   app.post('/auth/logout', mw.auth.logout)
   app.get('/auth/name/?(:name)?', mw.auth.name)
   app.get('/auth/email/?(:email)?', mw.auth.email)
@@ -168,8 +168,8 @@ module.exports.setup = (app) ->
   LevelSession = require '../models/LevelSession'
   app.post('/queue/scoring', mw.levelSessions.submitToLadder) # TODO: Rename to /db/level_session/:handle/submit-to-ladder
   app.post('/db/level.session/unset-scores', mw.auth.checkHasPermission(['admin']), mw.levelSessions.unsetScores)
-  app.put('/db/level.session/:handle/key-value-db/:key', mw.auth.checkLoggedIn(), mw.levelSessions.putKeyValueDb)
-  app.post('/db/level.session/:handle/key-value-db/:key/increment', mw.auth.checkLoggedIn(), mw.levelSessions.incrementKeyValueDb)
+  app.put('/db/level.session/:handle/key-value-db/:key', mw.levelSessions.putKeyValueDb)
+  app.post('/db/level.session/:handle/key-value-db/:key/increment', mw.levelSessions.incrementKeyValueDb)
 
 
   LevelSystem = require '../models/LevelSystem'
